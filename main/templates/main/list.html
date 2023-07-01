@@ -3,17 +3,28 @@
 
 {%block content%}
     <h1>{{ls.name}}</h1>
-    <ul>
-        {% for item in ls.item_set.all %}
-            {% if item.complete == True %}
-                <li>
-                    {{item.text}} -- Completed
-                </li>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <ul>
+            {% if ls.item_set.all.count %}
+            <!-- <h1>This is ----{{ls.item_set.all.count}}</h1> -->
+                {% for item in ls.item_set.all %}
+                    {% if item.complete == True %}
+                        <li>
+                            <input type="checkbox" value="clicked" name="c{{item.id}}" checked>{{item.text}}
+                        </li>
+                        {% else %}
+                        <li>
+                            <input type="checkbox" value="clicked" name="c{{item.id}}">{{item.text}}
+                        </li>
+                    {% endif %}
+                {% endfor %}
             {% else %}
-                <li>
-                    {{item.text}} -- Not Completed
-                </li>
+                <h1>No pending tasks...</h1>
             {% endif %}
-        {% endfor %}
-    </ul>
+        </ul>
+        <button type="submit" name="save" value="save">Save</button>
+        <input type="text" name="new">
+        <button type="submit" name="newItem" value="newItem">Add Item</button>
+    </form>
 {% endblock %}
