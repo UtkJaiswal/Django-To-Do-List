@@ -2,5 +2,5 @@
 username - admin
 password - admin
 
-username-Tim
+username-tim
 password- Geophysics-1
